@@ -1,0 +1,68 @@
+package {{packageName}};
+
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+{{#hasEnum}}import javax.persistence.EnumType;
+import javax.persistence.Enumerated;{{/hasEnum}}
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+{{#hasFK}}import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;{{/hasFK}}
+{{#hasTemporal}}import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;{{/hasTemporal}}
+
+/**
+*
+* @author {{author}}
+*/
+@Entity
+public class {{name}} {
+
+{{#fields}}
+    {{#id}}
+        @Id
+        {{#generated}}
+            @GeneratedValue(strategy = GenerationType.IDENTITY)
+        {{/generated}}
+        private {{javaType}} {{fieldName}};
+    {{/id}}
+    {{#basic}}
+        @Basic(optional={{optional}})
+        private {{javaType}} {{fieldName}};
+    {{/basic}}
+    {{#temporal}}
+        @Basic(optional = {{optional}})
+        @Temporal(TemporalType.TIMESTAMP)
+        private Date {{fieldName}};
+    {{/temporal}}
+    {{#fk}}
+        @ManyToOne(optional = {{optional}})
+        @JoinColumn(name = "{{fieldName}}")
+        private {{javaType}} {{fieldName}};
+    {{/fk}}
+    {{#enumType}}
+        public enum {{fieldName}}Value {
+            {{#values}}
+                {{value}}
+            {{/values}}
+        };
+        @Basic(optional = {{optional}})
+        @Enumerated(EnumType.STRING)
+        private {{fieldName}}Values {{fieldName}};
+    {{/enumType}}
+{{/fields}}
+
+{{#fields}}
+    public {{javaType}} get{{fieldNameCap}}(){
+        return this.{{fieldName}};
+    }
+
+    public void set{{fieldNameCap}}({{javaType}} {{fieldName}}){
+        this.{{fieldName}}={{fieldName}};
+    }
+
+{{/fields}}
+
+}
