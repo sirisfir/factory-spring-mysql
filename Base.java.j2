@@ -1,12 +1,12 @@
-package {{packageName}};
+package {{project.root.group}}.{{project.root.artifact}};
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class {{name}} {
+public class {{project.base.name}} {
 
 	public static void main(String[] args) {
-		SpringApplication.run({{name}}.class, args);
+		SpringApplication.run({{project.base.name}}.class, args);
 	}
 }

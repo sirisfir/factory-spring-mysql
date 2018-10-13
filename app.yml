@@ -1,0 +1,30 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  vars:
+    project: "{{ lookup('file', 'project.json') | from_json }}"
+    basePackage: /target/{{project.root.group | regex_replace('\.','/')}}/
+  tasks:
+  - name: write the POM
+    template:
+      src: pom.xml.j2
+      dest: /target/pom.xml
+  - name: create src directory
+    file:
+      path: '{{ basePackage }}'
+      state: directory
+  - name: write the Base class
+    template:
+      src: Base.java.j2
+      dest: '{{ basePackage }}/{{ project.base.name }}.java'
+  - name: create domain directory
+    file:
+      path: '{{ basePackage }}/domain'
+      state: directory
+  - name: write the Entity classes
+    loop: "{{project.domain}}"
+    vars:
+      entity: "{{item}}"
+    template:
+      src: "{{entity.name}}.java.j2"
+      dest: "{{ basePackage }}/domain"

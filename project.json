@@ -1,0 +1,21 @@
+{
+    "root": {
+        "group": "com.example",
+        "artifact": "project",
+        "version": "1.0.0",
+        "name": "Example project",
+        "description": "An example project",
+        "author":"Bob"
+    },
+    "base": {
+        "name": "App"
+    },
+    "domain":[
+        {
+            "name":"Article",
+            "fields":[
+                
+            ]
+        }
+    ]
+}
