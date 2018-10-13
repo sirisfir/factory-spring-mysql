@@ -3,7 +3,7 @@
   connection: local
   vars:
     project: "{{ lookup('file', 'project.json') | from_json }}"
-    basePackage: /target/{{project.root.group | regex_replace('\.','/')}}/
+    basePackage: /target/src/main/java/{{project.root.group | regex_replace('\.','/')}}
   tasks:
   - name: write the POM
     template:
@@ -24,7 +24,15 @@
   - name: write the Entity classes
     loop: "{{project.domain}}"
     vars:
-      entity: "{{item}}"
+      entity: "{{ item }}"
     template:
-      src: "{{entity.name}}.java.j2"
-      dest: "{{ basePackage }}/domain"
+      src: "Entity.java.j2"
+      dest: "{{ basePackage }}/domain/{{entity.name}}.java"
+  - name: create resources directory
+    file:
+      path: '/target/src/main/resources'
+      state: directory
+  - name: write the application.properties
+    template:
+      src: application.properties.j2
+      dest: '/target/src/main/resources/application.properties'

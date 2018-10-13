@@ -5,16 +5,64 @@
         "version": "1.0.0",
         "name": "Example project",
         "description": "An example project",
-        "author":"Bob"
+        "author": "Bob"
     },
     "base": {
         "name": "App"
     },
-    "domain":[
+    "domain": [
         {
-            "name":"Article",
-            "fields":[
-                
+            "name": "Article",
+            "fields": [
+                {
+                    "name": "id",
+                    "id": true,
+                    "generated": true,
+                    "type": "Integer"
+                },
+                {
+                    "name": "title",
+                    "basic": true,
+                    "optional": false,
+                    "type": "String"
+                },
+                {
+                    "name": "access",
+                    "enum": true,
+                    "values": [
+                        "PUBLIC",
+                        "PRIVATE"
+                    ],
+                    "optional": false
+                },
+                {
+                    "name": "author",
+                    "fk": "true",
+                    "type": "User",
+                    "optional": false
+                },
+                {
+                    "name":"publishDate",
+                    "type":"Date",
+                    "optional":false
+                }
+            ]
+        },
+        {
+            "name":"User",
+            "fields": [
+                {
+                    "name": "id",
+                    "id": true,
+                    "generated": true,
+                    "type": "Integer"
+                },
+                {
+                    "name": "email",
+                    "basic": true,
+                    "optional": false,
+                    "type": "String"
+                }
             ]
         }
     ]
