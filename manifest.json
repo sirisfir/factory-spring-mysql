@@ -3,7 +3,7 @@
   "category": "PROJECT_ROOT",
   "source": {
     "name":"spring-mysql",
-    "URI":"https://github.com/deroude/factory-spring-mysql.git"
+    "uri":"https://github.com/deroude/factory-spring-mysql.git"
   },
   "description": "Spring Boot / MySQL project",
   "access": 1,
