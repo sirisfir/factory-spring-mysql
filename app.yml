@@ -2,7 +2,7 @@
 - hosts: 127.0.0.1
   connection: local
   vars:
-    project: "{{ lookup('file', 'project.json') | from_json }}"
+    project: "{{ lookup('file', '/target/project.json') | from_json }}"
     group: "{{ (project.attributes|selectattr('name','equalto','group')|first).value }}"
     artifact: "{{ (project.attributes|selectattr('name','equalto','artifact')|first).value }}"
     appName: "{{ (project.attributes|selectattr('name','equalto','name')|first).value }}"
