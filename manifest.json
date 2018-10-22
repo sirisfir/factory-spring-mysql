@@ -74,7 +74,7 @@
         {
           "name": "Entity",
           "description": "A domain Entity",
-          "rights": 3,
+          "access": 3,
           "category": "DOMAIN_ENTITY",          
           "relationships": [
             {
@@ -87,7 +87,7 @@
                 {
                   "name": "Field",
                   "description": "An Entity Field (or column)",
-                  "rights": 3,
+                  "access": 3,
                   "category": "DOMAIN_ENTITY_FIELD",
                   "attributes": [                    
                     {
