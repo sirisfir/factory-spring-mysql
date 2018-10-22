@@ -7,7 +7,7 @@
   },
   "description": "Spring Boot / MySQL project",
   "access": 1,
-  "aatributes": [
+  "attributes": [
     {
       "name": "name",
       "label": "Application Name",
