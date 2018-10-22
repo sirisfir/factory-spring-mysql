@@ -44,30 +44,37 @@
                                     "attributes": [
                                         {
                                             "name": "type",
+                                            "type":"string",
                                             "value": "Integer"
                                         },
                                         {
                                             "name": "enum",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "id",
+                                            "type":"boolean",
                                             "value": true
                                         },
                                         {
                                             "name": "generated",
+                                            "type":"boolean",
                                             "value": true
                                         },
                                         {
                                             "name": "basic",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "optional",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "fk",
+                                            "type":"string",
                                             "value": "None"
                                         }
                                     ]
@@ -78,30 +85,37 @@
                                     "attributes": [
                                         {
                                             "name": "type",
+                                            "type":"string",
                                             "value": "String"
                                         },
                                         {
                                             "name": "enum",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "id",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "generated",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "basic",
+                                            "type":"boolean",
                                             "value": true
                                         },
                                         {
                                             "name": "optional",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "fk",
+                                            "type":"string",
                                             "value": "None"
                                         }
                                     ]
@@ -112,10 +126,12 @@
                                     "attributes": [
                                         {
                                             "name": "type",
+                                            "type":"string",
                                             "value": "String"
                                         },
                                         {
                                             "name": "enum",
+                                            "type":"boolean",
                                             "value": true,
                                             "possibleValues": [
                                                 "PRIVATE",
@@ -124,22 +140,27 @@
                                         },
                                         {
                                             "name": "id",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "generated",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "basic",
+                                            "type":"boolean",
                                             "value": true
                                         },
                                         {
                                             "name": "optional",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "fk",
+                                            "type":"string",
                                             "value": "None"
                                         }
                                     ]
@@ -150,30 +171,37 @@
                                     "attributes": [
                                         {
                                             "name": "type",
+                                            "type":"string",
                                             "value": "User"
                                         },
                                         {
                                             "name": "enum",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "id",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "generated",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "basic",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "optional",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "fk",
+                                            "type":"string",
                                             "value": "ManyToOne"
                                         }
                                     ]
@@ -184,30 +212,37 @@
                                     "attributes": [
                                         {
                                             "name": "type",
+                                            "type":"string",
                                             "value": "Date"
                                         },
                                         {
                                             "name": "enum",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "id",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "generated",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "basic",
+                                            "type":"boolean",
                                             "value": true
                                         },
                                         {
                                             "name": "optional",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "fk",
+                                            "type":"string",
                                             "value": "None"
                                         }
                                     ]
@@ -229,30 +264,37 @@
                                     "attributes": [
                                         {
                                             "name": "type",
+                                            "type":"string",
                                             "value": "Integer"
                                         },
                                         {
                                             "name": "enum",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "id",
+                                            "type":"boolean",
                                             "value": true
                                         },
                                         {
                                             "name": "generated",
+                                            "type":"boolean",
                                             "value": true
                                         },
                                         {
                                             "name": "basic",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "optional",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "fk",
+                                            "type":"string",
                                             "value": "None"
                                         }
                                     ]
@@ -263,30 +305,37 @@
                                     "attributes": [
                                         {
                                             "name": "type",
+                                            "type":"string",
                                             "value": "String"
                                         },
                                         {
                                             "name": "enum",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "id",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "generated",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "basic",
+                                            "type":"boolean",
                                             "value": true
                                         },
                                         {
                                             "name": "optional",
+                                            "type":"boolean",
                                             "value": false
                                         },
                                         {
                                             "name": "fk",
+                                            "type":"string",
                                             "value": "None"
                                         }
                                     ]
