@@ -76,7 +76,7 @@
           "description": "A domain Entity",
           "access": 3,
           "category": "DOMAIN_ENTITY",          
-          "relationships": [
+          "relations": [
             {
               "name": "fields",
               "label": "Fields",
