@@ -1,140 +1,178 @@
 {
-  "name":"Root",
-  "type":"PROJECT_ROOT",
-  "description":"Spring Boot / MySQL project",
-  "rights":["CAN_EDIT_PROPERTIES"],
-  "properties": [
-    {
-      "name": "technology",
-      "access": "ADMIN",
-      "order": "0",
-      "value": "spring"
-    },
-    {
-      "name": "persistence",
-      "access": "ADMIN",
-      "order": "1",
-      "value": "mysql"
-    },
+  "name": "Root",
+  "category": "PROJECT_ROOT",
+  "source": "https://github.com/deroude/factory-spring-mysql.git",
+  "description": "Spring Boot / MySQL project",
+  "access": 1,
+  "aatributes": [
     {
       "name": "name",
-      "access": "PUBLIC",
-      "order": "2",
-      "value": "MySpringBootMySQLApplication"
+      "label": "Application Name",
+      "description": "The name of your application",
+      "access": 3,
+      "order": 1,
+      "type": "string",
+      "value": "MySpringBootMysqlApp"
     },
     {
       "name": "group",
-      "access": "PUBLIC",
-      "order": "3",
+      "label": "Package Group",
+      "description": "The package group holding your code",
+      "access": 3,
+      "order": 2,
+      "type": "string",
       "value": "com.example"
     },
     {
       "name": "artifact",
-      "access": "PUBLIC",
-      "order": "4",
+      "label": "Artifact",
+      "description": "The artifact name that designates your application",
+      "access": 3,
+      "order": 3,
+      "type": "string",
       "value": "app"
     },
     {
       "name": "description",
-      "access": "PUBLIC",
-      "order": "6",
+      "label": "Description",
+      "description": "A description of your application",
+      "type": "string",
+      "access": 3,
+      "order": 4,
       "value": "Bob's Spring Boot MySQL backend"
     },
     {
       "name": "version",
-      "access": "PUBLIC",
-      "order": "5",
+      "label": "Version",
+      "description": "The version you want to start at",
+      "type": "string",
+      "access": 3,
+      "order": 5,
       "value": "0.0.1"
     },
     {
       "name": "author",
-      "access": "PUBLIC",
-      "order": "7",
+      "label": "Author",
+      "description": "Your name",
+      "type": "string",
+      "access": 3,
+      "order": 6,
       "value": "Bob"
     }
   ],
-  "renderChildrenAs":"ACCORDION_HORIZONTAL",
-  "enhancers":["JavaPackageEnhancer","JavaInheritedPropertiesEnhancer"],
-  "mappings":{
-    "pom.xml.mustache":"pom.xml",
-    "application.properties.mustache":"src/main/resources/application.properties",
-    "Base.java.mustache":"src/main/java/{{packageFolder}}/{{name}}.java"
-  },
-  "children":[
+  "relations": [
     {
-      "name":"Domain",
-      "type":"DOMAIN_ROOT",
-      "description":"All domain concepts are children of this node",
-      "rights":["CAN_EDIT_CHILDREN"],
-      "childPrototype":{
-        "name":"Entity",
-        "type":"DOMAIN_ENTITY",
-        "description":"Prototype domain class",
-        "rights":["CAN_EDIT_CHILDREN","CAN_EDIT_PROPERTIES"],
-        "enhancers":["JavaDomainClassEnhancer"],
-        "properties": [
-          {
-            "name": "name",
-            "access": "PUBLIC",
-            "order": "0",
-            "value": "FirstEntity"
-          }
-        ],
-        "mappings":{
-          "Entity.mustache":"src/main/java/{{packageFolder}}/{{name}}.java"
-        },
-        "fieldPrototype":{
-          "name":"Attribute",
-          "type":"DOMAIN_ATTRIBUTE",
-          "description":"Prototype domain attribute",
-          "rights":["CAN_EDIT_PROPERTIES"],
-          "enhancers":["JavaFieldNameEnhancer","JavaTypeEnhancer"],
-          "properties": [
+      "name": "domain",
+      "label": "Domain",
+      "description": "The entities that are needed in your project",
+      "preferredRender": "ACCORDION",
+      "access": 5,
+      "prototypes": [
+        {
+          "name": "Entity",
+          "description": "A domain Entity",
+          "rights": 3,
+          "category": "DOMAIN_ENTITY",          
+          "relationships": [
             {
-              "name": "name",
-              "access": "PUBLIC",
-              "order": "0",
-              "value": "FirstAttribute"
-            },
-            {
-              "name": "type",
-              "access": "PUBLIC",
-              "order": "1",
-              "value": "String"
-            },
-            {
-              "name": "id",
-              "access": "PUBLIC",
-              "order": "2",
-              "value": "true"
-            },
-            {
-              "name": "basic",
-              "access": "PUBLIC",
-              "order": "3",
-              "value": "false"
-            },
-            {
-              "name": "temporal",
-              "access": "PUBLIC",
-              "order": "4",
-              "value": "false"
-            },
-            {
-              "name": "fk",
-              "access": "PUBLIC",
-              "order": "5",
-              "value": "false"
-            },
-            {
-              "name": "enumType",
-              "access": "PUBLIC",
-              "order": "6",
-              "value": "false"
+              "name": "fields",
+              "label": "Fields",
+              "description": "The fields (or columns) in this Entity",
+              "preferredRender": "TABLE",
+              "access": 5,
+              "prototypes": [
+                {
+                  "name": "Field",
+                  "description": "An Entity Field (or column)",
+                  "rights": 3,
+                  "category": "DOMAIN_ENTITY_FIELD",
+                  "attributes": [                    
+                    {
+                      "name": "type",
+                      "label": "Field type",
+                      "description": "The field type",
+                      "access": 3,
+                      "order": 2,
+                      "type": "type",
+                      "value": "String",
+                      "possibleValues": [
+                        "String",
+                        "Integer",
+                        "Double",
+                        "Date",
+                        "Boolean"
+                      ]
+                    },
+                    {
+                      "name": "enum",
+                      "label": "Enumeration",
+                      "description": "Is this field an enumeration?",
+                      "access": 3,
+                      "order": 3,
+                      "type": "boolean",
+                      "value": false,
+                      "possibleValues": [
+                        "VALUE1",
+                        "VALUE2"
+                      ]
+                    },
+                    {
+                      "name": "id",
+                      "label": "Id field",
+                      "description": "Is this field the unique id?",
+                      "access": 3,
+                      "order": 4,
+                      "type": "boolean",
+                      "value": false
+                    },
+                    {
+                      "name": "generated",
+                      "label": "Generated field",
+                      "description": "Is this field auto-generated?",
+                      "access": 3,
+                      "order": 5,
+                      "type": "boolean",
+                      "value": false
+                    },
+                    {
+                      "name": "basic",
+                      "label": "Basic",
+                      "description": "Is this field basic (i.e.) not a foreign key?",
+                      "access": 3,
+                      "order": 6,
+                      "type": "boolean",
+                      "value": true
+                    },
+                    {
+                      "name": "fk",
+                      "label": "Foreign Key",
+                      "description": "Is this field a reference to another table?",
+                      "access": 3,
+                      "order": 7,
+                      "type": "string",
+                      "value": "None",
+                      "possibleValues": [
+                        "OneToMany",
+                        "ManyToOne",
+                        "None"
+                      ]
+                    },
+                    {
+                      "name": "optional",
+                      "label": "Optional",
+                      "description": "Is this field optional?",
+                      "access": 3,
+                      "order": 8,
+                      "type": "boolean",
+                      "value": false
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
-      }
+      ]
     }
   ]
 }

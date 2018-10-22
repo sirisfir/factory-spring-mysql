@@ -1,67 +1,299 @@
 {
-    "root": {
-        "group": "com.example",
-        "artifact": "project",
-        "version": "1.0.0",
-        "name": "Example project",
-        "description": "An example project",
-        "author": "Bob"
-    },
-    "base": {
-        "name": "App"
-    },
-    "domain": [
+    "name": "root",
+    "category": "PROJECT_ROOT",
+    "attributes": [
         {
-            "name": "Article",
-            "fields": [
-                {
-                    "name": "id",
-                    "id": true,
-                    "generated": true,
-                    "type": "Integer"
-                },
-                {
-                    "name": "title",
-                    "basic": true,
-                    "optional": false,
-                    "type": "String"
-                },
-                {
-                    "name": "access",
-                    "enum": true,
-                    "values": [
-                        "PUBLIC",
-                        "PRIVATE"
-                    ],
-                    "optional": false
-                },
-                {
-                    "name": "author",
-                    "fk": "true",
-                    "type": "User",
-                    "optional": false
-                },
-                {
-                    "name":"publishDate",
-                    "type":"Date",
-                    "optional":false
-                }
-            ]
+            "name": "name",
+            "value": "BobsSpringBootApp"
         },
         {
-            "name":"User",
-            "fields": [
+            "name": "group",
+            "value": "com.bob"
+        },
+        {
+            "name": "artifact",
+            "value": "app"
+        },
+        {
+            "name": "description",
+            "value": "Bob's Spring Boot MySQL backend"
+        },
+        {
+            "name": "version",
+            "value": "0.0.1"
+        },
+        {
+            "name": "author",
+            "value": "Bob"
+        }
+    ],
+    "relations": [
+        {
+            "name": "domain",
+            "children": [
                 {
-                    "name": "id",
-                    "id": true,
-                    "generated": true,
-                    "type": "Integer"
+                    "name": "Article",
+                    "description": "Articles in Bob's blog",
+                    "relations": [
+                        {
+                            "name": "fields",
+                            "children": [
+                                {
+                                    "name": "id",
+                                    "description": "The unique id of an article",
+                                    "attributes": [
+                                        {
+                                            "name": "type",
+                                            "value": "Integer"
+                                        },
+                                        {
+                                            "name": "enum",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "id",
+                                            "value": true
+                                        },
+                                        {
+                                            "name": "generated",
+                                            "value": true
+                                        },
+                                        {
+                                            "name": "basic",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "optional",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "fk",
+                                            "value": "None"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "title",
+                                    "description": "The article's title",
+                                    "attributes": [
+                                        {
+                                            "name": "type",
+                                            "value": "String"
+                                        },
+                                        {
+                                            "name": "enum",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "id",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "generated",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "basic",
+                                            "value": true
+                                        },
+                                        {
+                                            "name": "optional",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "fk",
+                                            "value": "None"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "access",
+                                    "description": "Public or Private",
+                                    "attributes": [
+                                        {
+                                            "name": "type",
+                                            "value": "String"
+                                        },
+                                        {
+                                            "name": "enum",
+                                            "value": true,
+                                            "possibleValues": [
+                                                "PRIVATE",
+                                                "PUBLIC"
+                                            ]
+                                        },
+                                        {
+                                            "name": "id",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "generated",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "basic",
+                                            "value": true
+                                        },
+                                        {
+                                            "name": "optional",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "fk",
+                                            "value": "None"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "author",
+                                    "description": "The article's author",
+                                    "attributes": [
+                                        {
+                                            "name": "type",
+                                            "value": "User"
+                                        },
+                                        {
+                                            "name": "enum",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "id",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "generated",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "basic",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "optional",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "fk",
+                                            "value": "ManyToOne"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "publishDate",
+                                    "description": "The article's date",
+                                    "attributes": [
+                                        {
+                                            "name": "type",
+                                            "value": "Date"
+                                        },
+                                        {
+                                            "name": "enum",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "id",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "generated",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "basic",
+                                            "value": true
+                                        },
+                                        {
+                                            "name": "optional",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "fk",
+                                            "value": "None"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
-                    "name": "email",
-                    "basic": true,
-                    "optional": false,
-                    "type": "String"
+                    "name": "User",
+                    "description": "Contributors Bob's blog",
+                    "relations": [
+                        {
+                            "name": "fields",
+                            "children": [
+                                {
+                                    "name": "id",
+                                    "description": "The unique id of a user",
+                                    "attributes": [
+                                        {
+                                            "name": "type",
+                                            "value": "Integer"
+                                        },
+                                        {
+                                            "name": "enum",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "id",
+                                            "value": true
+                                        },
+                                        {
+                                            "name": "generated",
+                                            "value": true
+                                        },
+                                        {
+                                            "name": "basic",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "optional",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "fk",
+                                            "value": "None"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "name",
+                                    "description": "The user name",
+                                    "attributes": [
+                                        {
+                                            "name": "type",
+                                            "value": "String"
+                                        },
+                                        {
+                                            "name": "enum",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "id",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "generated",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "basic",
+                                            "value": true
+                                        },
+                                        {
+                                            "name": "optional",
+                                            "value": false
+                                        },
+                                        {
+                                            "name": "fk",
+                                            "value": "None"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }
