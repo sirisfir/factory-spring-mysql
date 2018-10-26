@@ -103,7 +103,8 @@
                         "Integer",
                         "Double",
                         "Date",
-                        "Boolean"
+                        "Boolean",
+                        "relations:domain"
                       ]
                     },
                     {
