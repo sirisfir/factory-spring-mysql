@@ -104,7 +104,8 @@
                         "Double",
                         "Date",
                         "Boolean",
-                        "relations:domain"
+                        "relations:domain",
+                        "enumeration"
                       ]
                     },
                     {
