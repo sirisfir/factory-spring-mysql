@@ -111,10 +111,10 @@
                     {
                       "name": "enum",
                       "label": "Enumeration",
-                      "description": "Is this field an enumeration?",
+                      "description": "Enumeration values for this field",
                       "access": 3,
                       "order": 3,
-                      "type": "boolean",
+                      "type": "enumeration",
                       "value": false,
                       "possibleValues": [
                         "VALUE1",
