@@ -14,7 +14,7 @@ import {{ group }}.{{ artifact }}.repository.{{ entity.name }}Repository;
 
 @RestController
 @RequestMapping("/{{entity.name|lower}}")
-public class {{ entity.name }}Controller extends JpaRepository<{{ entity.name }},Integer>{
+public class {{ entity.name }}Controller {
 
     private final {{ entity.name }}Repository {{entity.name|lower}}Repository;
 

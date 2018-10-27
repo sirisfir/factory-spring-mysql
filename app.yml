@@ -34,6 +34,30 @@
     template:
       src: "Entity.java.j2"
       dest: "{{ basePackage }}/domain/{{entity.name}}.java"
+  - name: create repository directory
+    file:
+      path: '{{ basePackage }}/repository'
+      state: directory
+  - name: write the Repository classes
+    loop: "{{ (project.relations|selectattr('name','equalto','domain')|first).children|list }}"
+    vars:
+      entity: "{{ item }}"
+      fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children }}"
+    template:
+      src: "Repository.java.j2"
+      dest: "{{ basePackage }}/repository/{{entity.name}}Repository.java"
+  - name: create controller directory
+    file:
+      path: '{{ basePackage }}/controller'
+      state: directory
+  - name: write the Controller classes
+    loop: "{{ (project.relations|selectattr('name','equalto','domain')|first).children|list }}"
+    vars:
+      entity: "{{ item }}"
+      fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children }}"
+    template:
+      src: "Controller.java.j2"
+      dest: "{{ basePackage }}/controller/{{entity.name}}Controller.java"
   - name: create resources directory
     file:
       path: '/target/src/main/resources'
