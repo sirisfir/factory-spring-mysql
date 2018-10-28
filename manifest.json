@@ -104,7 +104,7 @@
                         "Double",
                         "Date",
                         "Boolean",
-                        "relations:domain",
+                        "reference",
                         "enumeration"
                       ]
                     },
@@ -114,6 +114,11 @@
                       "description": "Enumeration values for this field",
                       "access": 3,
                       "order": 3,
+                      "showIf":{
+                        "type":"attribute",
+                        "name":"type",
+                        "value":"enumeration"
+                       },
                       "type": "enumeration",
                       "value": false,
                       "possibleValues": [
@@ -154,12 +159,34 @@
                       "description": "Is this field a reference to another table?",
                       "access": 3,
                       "order": 7,
+                      "showIf":{
+                        "type":"attribute",
+                        "name":"type",
+                        "value":"reference"
+                      },
                       "type": "string",
                       "value": "None",
                       "possibleValues": [
                         "OneToMany",
                         "ManyToOne",
                         "None"
+                      ]
+                    },
+                    {
+                      "name": "fkReference",
+                      "label": "Foreign Key Reference",
+                      "description": "What other table?",
+                      "access": 3,
+                      "order": 7,
+                      "showIf":{
+                        "type":"attribute",
+                        "name":"type",
+                        "value":"reference"
+                      },
+                      "type": "string",
+                      "value": "None",
+                      "possibleValues": [
+                        "relation:domain"
                       ]
                     },
                     {
