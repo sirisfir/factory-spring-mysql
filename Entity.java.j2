@@ -62,7 +62,7 @@ public class {{ entity.name }} {
 {% endfor %}
 
 {% for field in fields %}
-{% if field.attributes|selectattr("name","equalto","enum")|selectattr("value","equalto","false")|list|length > 0 %}
+{% if field.attributes|selectattr("name","equalto","enum")|selectattr("value","equalto","true")|list|length > 0 %}
     public {{ field.name|capitalize }}Value get{{ field.name|capitalize }}(){
         return this.{{ field.name }};
     }
