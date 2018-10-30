@@ -315,7 +315,7 @@
                       "name": "type",
                       "label": "Field type",
                       "description": "The field type",
-                      "access": 0,
+                      "access": 3,
                       "order": 1,
                       "type": "type",
                       "value": "reference",
