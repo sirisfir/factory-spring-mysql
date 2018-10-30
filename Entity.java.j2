@@ -2,7 +2,7 @@ package {{ group }}.{{ artifact }}.domain;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
-{% if fields|sum(attribute="attributes", start=[])|selectattr("name","equalto","enum")|selectattr("value")|list|length > 0 %}
+{% if fields|sum(attribute="attributes", start=[])|selectattr("name","equalto","enum")|selectattr("value","equalto","true")|list|length > 0 %}
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 {% endif %}
@@ -27,14 +27,14 @@ import java.util.Date;
 public class {{ entity.name }} {
 
 {% for field in fields %}
-{% if field.attributes|selectattr("name","equalto","id")|selectattr("value","equalto","false")|list|length > 0 %}
+{% if field.attributes|selectattr("name","equalto","id")|selectattr("value","equalto","true")|list|length > 0 %}
     @Id
-{% if field.attributes|selectattr("name","equalto","generated")|selectattr("value","equalto","false")|list|length > 0 %}
+{% if field.attributes|selectattr("name","equalto","generated")|selectattr("value","equalto","true")|list|length > 0 %}
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 {% endif %}
     private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
 {% endif %}
-{% if field.attributes|selectattr("name","equalto","basic")|selectattr("value","equalto","false")|list|length > 0 %}
+{% if field.attributes|selectattr("name","equalto","basic")|selectattr("value","equalto","true")|list|length > 0 %}
     @Basic(optional={{ (field.attributes|selectattr("name","equalto","optional")|first).value }})
     private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
 {% endif %}

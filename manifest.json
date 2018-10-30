@@ -163,7 +163,7 @@
                   ]
                 },
                 {
-                  "name": "IDField",
+                  "name": "id",
                   "description": "An Entity unique ID",
                   "access": 3,
                   "category": "DOMAIN_ENTITY_FIELD",
