@@ -1,10 +1,6 @@
 {
   "name": "Root",
   "category": "PROJECT_ROOT",
-  "source": {
-    "name":"spring-mysql",
-    "uri":"https://github.com/deroude/factory-spring-mysql.git"
-  },
   "description": "Spring Boot / MySQL project",
   "access": 1,
   "attributes": [
@@ -72,6 +68,10 @@
       "access": 5,
       "prototypes": [
         {
+          "source":{
+            "name":"domain",
+            "author":"codemancy"
+          },
           "name": "Entity",
           "description": "A domain Entity",
           "access": 3,
