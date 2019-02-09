@@ -29,314 +29,104 @@
     ],
     "relations": [
         {
-            "name": "domain",
+            "name": "features",
             "children": [
                 {
-                    "name": "Article",
-                    "description": "Articles in Bob's blog",
+                    "name": "domain",
                     "relations": [
                         {
-                            "name": "fields",
+                            "name": "entities",
                             "children": [
                                 {
-                                    "name": "id",
-                                    "description": "The unique id of an article",
-                                    "attributes": [
+                                    "name": "User",
+                                    "description": "Contributors Bob's blog",
+                                    "relations": [
                                         {
-                                            "name": "type",
-                                            "type":"string",
-                                            "value": "Integer"
-                                        },
-                                        {
-                                            "name": "enum",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "id",
-                                            "type":"boolean",
-                                            "value": true
-                                        },
-                                        {
-                                            "name": "generated",
-                                            "type":"boolean",
-                                            "value": true
-                                        },
-                                        {
-                                            "name": "basic",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "optional",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "fk",
-                                            "type":"string",
-                                            "value": "None"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "title",
-                                    "description": "The article's title",
-                                    "attributes": [
-                                        {
-                                            "name": "type",
-                                            "type":"string",
-                                            "value": "String"
-                                        },
-                                        {
-                                            "name": "enum",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "id",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "generated",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "basic",
-                                            "type":"boolean",
-                                            "value": true
-                                        },
-                                        {
-                                            "name": "optional",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "fk",
-                                            "type":"string",
-                                            "value": "None"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "access",
-                                    "description": "Public or Private",
-                                    "attributes": [
-                                        {
-                                            "name": "type",
-                                            "type":"string",
-                                            "value": "String"
-                                        },
-                                        {
-                                            "name": "enum",
-                                            "type":"boolean",
-                                            "value": true,
-                                            "possibleValues": [
-                                                "PRIVATE",
-                                                "PUBLIC"
+                                            "name": "fields",
+                                            "children": [
+                                                {
+                                                    "name": "id",
+                                                    "description": "The unique id of a user",
+                                                    "attributes": [
+                                                        {
+                                                            "name": "type",
+                                                            "type": "string",
+                                                            "value": "Integer"
+                                                        },
+                                                        {
+                                                            "name": "enum",
+                                                            "type": "boolean",
+                                                            "value": false
+                                                        },
+                                                        {
+                                                            "name": "id",
+                                                            "type": "boolean",
+                                                            "value": true
+                                                        },
+                                                        {
+                                                            "name": "generated",
+                                                            "type": "boolean",
+                                                            "value": true
+                                                        },
+                                                        {
+                                                            "name": "basic",
+                                                            "type": "boolean",
+                                                            "value": false
+                                                        },
+                                                        {
+                                                            "name": "optional",
+                                                            "type": "boolean",
+                                                            "value": false
+                                                        },
+                                                        {
+                                                            "name": "fk",
+                                                            "type": "string",
+                                                            "value": "None"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "name": "name",
+                                                    "description": "The user name",
+                                                    "attributes": [
+                                                        {
+                                                            "name": "type",
+                                                            "type": "string",
+                                                            "value": "String"
+                                                        },
+                                                        {
+                                                            "name": "enum",
+                                                            "type": "boolean",
+                                                            "value": false
+                                                        },
+                                                        {
+                                                            "name": "id",
+                                                            "type": "boolean",
+                                                            "value": false
+                                                        },
+                                                        {
+                                                            "name": "generated",
+                                                            "type": "boolean",
+                                                            "value": false
+                                                        },
+                                                        {
+                                                            "name": "basic",
+                                                            "type": "boolean",
+                                                            "value": true
+                                                        },
+                                                        {
+                                                            "name": "optional",
+                                                            "type": "boolean",
+                                                            "value": false
+                                                        },
+                                                        {
+                                                            "name": "fk",
+                                                            "type": "string",
+                                                            "value": "None"
+                                                        }
+                                                    ]
+                                                }
                                             ]
-                                        },
-                                        {
-                                            "name": "id",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "generated",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "basic",
-                                            "type":"boolean",
-                                            "value": true
-                                        },
-                                        {
-                                            "name": "optional",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "fk",
-                                            "type":"string",
-                                            "value": "None"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "author",
-                                    "description": "The article's author",
-                                    "attributes": [
-                                        {
-                                            "name": "type",
-                                            "type":"string",
-                                            "value": "User"
-                                        },
-                                        {
-                                            "name": "enum",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "id",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "generated",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "basic",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "optional",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "fk",
-                                            "type":"string",
-                                            "value": "ManyToOne"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "publishDate",
-                                    "description": "The article's date",
-                                    "attributes": [
-                                        {
-                                            "name": "type",
-                                            "type":"string",
-                                            "value": "Date"
-                                        },
-                                        {
-                                            "name": "enum",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "id",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "generated",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "basic",
-                                            "type":"boolean",
-                                            "value": true
-                                        },
-                                        {
-                                            "name": "optional",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "fk",
-                                            "type":"string",
-                                            "value": "None"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "User",
-                    "description": "Contributors Bob's blog",
-                    "relations": [
-                        {
-                            "name": "fields",
-                            "children": [
-                                {
-                                    "name": "id",
-                                    "description": "The unique id of a user",
-                                    "attributes": [
-                                        {
-                                            "name": "type",
-                                            "type":"string",
-                                            "value": "Integer"
-                                        },
-                                        {
-                                            "name": "enum",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "id",
-                                            "type":"boolean",
-                                            "value": true
-                                        },
-                                        {
-                                            "name": "generated",
-                                            "type":"boolean",
-                                            "value": true
-                                        },
-                                        {
-                                            "name": "basic",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "optional",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "fk",
-                                            "type":"string",
-                                            "value": "None"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "name",
-                                    "description": "The user name",
-                                    "attributes": [
-                                        {
-                                            "name": "type",
-                                            "type":"string",
-                                            "value": "String"
-                                        },
-                                        {
-                                            "name": "enum",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "id",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "generated",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "basic",
-                                            "type":"boolean",
-                                            "value": true
-                                        },
-                                        {
-                                            "name": "optional",
-                                            "type":"boolean",
-                                            "value": false
-                                        },
-                                        {
-                                            "name": "fk",
-                                            "type":"string",
-                                            "value": "None"
                                         }
                                     ]
                                 }
