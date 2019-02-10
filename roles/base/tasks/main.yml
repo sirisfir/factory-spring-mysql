@@ -15,7 +15,7 @@
     path: '{{ basePackage }}/domain'
     state: directory
 - name: write the Entity classes
-  loop: "{{ (project.relations|selectattr('name','equalto','domain')|first).children|list }}"
+  loop: "{{ (domain.relations|selectattr('name'|'equalto','entities')|first).children|list }}"
   vars:
     entity: "{{ item }}"
     fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children }}"
@@ -27,7 +27,7 @@
     path: '{{ basePackage }}/repository'
     state: directory
 - name: write the Repository classes
-  loop: "{{ (project.relations|selectattr('name','equalto','domain')|first).children|list }}"
+  loop: "{{ (domain.relations|selectattr('name'|'equalto','entities')|first).children|list  }}"
   vars:
     entity: "{{ item }}"
     fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children }}"
@@ -39,7 +39,7 @@
     path: '{{ basePackage }}/controller'
     state: directory
 - name: write the Controller classes
-  loop: "{{ (project.relations|selectattr('name','equalto','domain')|first).children|list }}"
+  loop: "{{ (domain.relations|selectattr('name'|'equalto','entities')|first).children|list  }}"
   vars:
     entity: "{{ item }}"
     fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children }}"
