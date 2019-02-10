@@ -65,7 +65,7 @@
       "label": "Application features",
       "description": "Your Spring Application features",
       "preferredRender": "ACCORDION",
-      "access": 3,
+      "access": 1,
       "children":[
         {
           "source":{
@@ -74,7 +74,7 @@
           },
           "name": "domain",
           "description": "The Domain of your Application",
-          "access": 3
+          "access": 1
         }
       ]
     }
