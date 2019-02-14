@@ -14,9 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 {% endif %}
 {% if fields|sum(attribute="attributes", start=[])|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0 %}
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
+import java.time.ZonedDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 {% endif %}
 
 /**
@@ -35,16 +34,16 @@ public class {{ entity.name }} {
     private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
 {% endif %}
 {% if field.attributes|selectattr("name","equalto","basic")|selectattr("value","equalto","true")|list|length > 0 %}
-    @Basic(optional={{ (field.attributes|selectattr("name","equalto","optional")|first).value }})
+    @Basic(optional={{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
     private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
 {% endif %}
 {% if field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0%}
-    @Basic(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value }})
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date {{ field.name }};
+    @Basic(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private ZonedDateTime {{ field.name }};
 {% endif %}
 {% if field.attributes|selectattr("name","equalto","fk")|rejectattr("value","equalto","None")|list|length > 0 %}
-    @{{  (field.attributes|selectattr("name","equalto","fk")|first).value }}(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value }})
+    @{{  (field.attributes|selectattr("name","equalto","fk")|first).value }}(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
 {% if field.attributes|selectattr("name","equalto","fk")|selectattr("value","equalto","ManyToOne")|list|length > 0 %}
     @JoinColumn(name = "{{ field.name }}")
 {% endif %}
@@ -55,7 +54,7 @@ public class {{ entity.name }} {
         {{ (field.attributes|selectattr("name","equalto","enum")|first).possibleValues|join(',') }}
     };
 
-    @Basic(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value }})
+    @Basic(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
     @Enumerated(EnumType.STRING)
     private {{ field.name|capitalize }}Values {{ field.name }};
 {% endif %}
