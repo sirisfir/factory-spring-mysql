@@ -20,12 +20,12 @@ public class {{ entity.name }}Controller {
 
     @Autowired
     public {{ entity.name }}Controller(final {{ entity.name }}Repository {{entity.name|lower}}Repository){
-        this.{{ entity.name }}Repository {{entity.name|lower}}Repository = {{ entity.name }}Repository {{entity.name|lower}}Repository;
+        this.{{entity.name|lower}}Repository = {{entity.name|lower}}Repository;
     }
 
     @GetMapping
     public Page<{{ entity.name }}> get{{ entity.name }}List (final Pageable pageSpecification) {
-        return this.{{ entity.name }}Repository.findAll(pageSpecification);
+        return this.{{ entity.name|lower }}Repository.findAll(pageSpecification);
     }
 
     @GetMapping("/{id}")
@@ -38,12 +38,12 @@ public class {{ entity.name }}Controller {
 
     @PostMapping
     public {{ entity.name }} new{{ entity.name }} (@RequestBody final {{ entity.name }} {{ entity.name|lower}}) {
-        return this.{{ entity.name }}Repository.saveAndFlush({{ entity.name|lower}});
+        return this.{{ entity.name|lower }}Repository.saveAndFlush({{ entity.name|lower}});
     }
 
     @DeleteMapping("/{id}")
-    public void delete{{ entity.name }} (@PathVariable("id") final Integer id) {
-       this.{{ entity.name }}Repository.delete(id);
+    public void delete{{ entity.name }} (@PathVariable("id") final Long id) {
+       this.{{ entity.name|lower }}Repository.deleteById(id);
     }
 
 }

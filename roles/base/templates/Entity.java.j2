@@ -35,12 +35,12 @@ public class {{ entity.name }} {
 {% endif %}
 {% if field.attributes|selectattr("name","equalto","basic")|selectattr("value","equalto","true")|list|length > 0 %}
     @Basic(optional={{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
-    private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
-{% endif %}
 {% if field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0%}
-    @Basic(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private ZonedDateTime {{ field.name }};
+{% else %}
+    private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
+{% endif %}
 {% endif %}
 {% if field.attributes|selectattr("name","equalto","fk")|rejectattr("value","equalto","None")|list|length > 0 %}
     @{{  (field.attributes|selectattr("name","equalto","fk")|first).value }}(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
