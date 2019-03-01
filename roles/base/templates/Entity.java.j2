@@ -50,7 +50,7 @@ public class {{ entity.name }} {
     private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{field.name}};
 {% endif %}
 {% if field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","enumeration")|list|length > 0 %}
-    public enum {{ field.name|capitalize }}Value {
+    public enum {{ field.name|capitalize }}Values {
         {{ (field.attributes|selectattr("name","equalto","enum")|first).possibleValues|join(',') }}
     };
 
@@ -62,7 +62,7 @@ public class {{ entity.name }} {
 
 {% for field in fields %}
 {% if field.attributes|selectattr("name","equalto","enum")|selectattr("value","equalto","true")|list|length > 0 %}
-    public {{ field.name|capitalize }}Value get{{ field.name|capitalize }}(){
+    public {{ field.name|capitalize }}Values get{{ field.name|capitalize }}(){
         return this.{{ field.name }};
     }
 
