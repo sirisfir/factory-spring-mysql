@@ -66,9 +66,19 @@ public class {{ entity.name }} {
         return this.{{ field.name }};
     }
 
-    public void set{{ field.name|capitalize }}({{ field.name|capitalize }}Value {{ field.name }}){
+    public void set{{ field.name|capitalize }}({{ field.name|capitalize }}Values {{ field.name }}){
         this.{{ field.name }}={{ field.name }};
     }
+{% else %}
+{% if field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0%}
+    public ZonedDateTime get{{field.name|capitalize }}() {
+        return this.{{field.name}};
+    }
+
+    public void set{{field.name|capitalize}} ( ZonedDateTime {{ field.name }}){
+        this.{{ field.name }}={{ field.name }};
+    }
+{% endif %}
 {% else %}
     public {{ (field.attributes|selectattr("name","equalto","type")|first).value }} get{{field.name|capitalize}}(){
         return this.{{field.name}};
