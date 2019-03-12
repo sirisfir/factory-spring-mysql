@@ -32,24 +32,7 @@ public class {{ entity.name }} {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 {% endif %}
     private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
-{% endif %}
-{% if field.attributes|selectattr("name","equalto","basic")|selectattr("value","equalto","true")|list|length > 0 %}
-    @Basic(optional={{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
-{% if field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0%}
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private ZonedDateTime {{ field.name }};
-{% else %}
-    private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
-{% endif %}
-{% endif %}
-{% if field.attributes|selectattr("name","equalto","fk")|rejectattr("value","equalto","None")|list|length > 0 %}
-    @{{  (field.attributes|selectattr("name","equalto","fk")|first).value }}(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
-{% if field.attributes|selectattr("name","equalto","fk")|selectattr("value","equalto","ManyToOne")|list|length > 0 %}
-    @JoinColumn(name = "{{ field.name }}")
-{% endif %}
-    private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{field.name}};
-{% endif %}
-{% if field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","enumeration")|list|length > 0 %}
+{% elif field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","enumeration")|list|length > 0 %}
     public enum {{ field.name|capitalize }}Values {
         {{ (field.attributes|selectattr("name","equalto","enum")|first).possibleValues|join(',') }}
     };
@@ -57,7 +40,22 @@ public class {{ entity.name }} {
     @Basic(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
     @Enumerated(EnumType.STRING)
     private {{ field.name|capitalize }}Values {{ field.name }};
+{% elif field.attributes|selectattr("name","equalto","basic")|selectattr("value","equalto","true")|list|length > 0 %}
+    @Basic(optional={{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
+{% if field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0%}
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private ZonedDateTime {{ field.name }};
+{% else %}
+    private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
 {% endif %}
+{% elif field.attributes|selectattr("name","equalto","fk")|rejectattr("value","equalto","None")|list|length > 0 %}
+    @{{  (field.attributes|selectattr("name","equalto","fk")|first).value }}(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
+{% if field.attributes|selectattr("name","equalto","fk")|selectattr("value","equalto","ManyToOne")|list|length > 0 %}
+    @JoinColumn(name = "{{ field.name }}")
+{% endif %}
+    private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{field.name}};
+{% endif %}
+
 {% endfor %}
 
 {% for field in fields %}
@@ -69,8 +67,7 @@ public class {{ entity.name }} {
     public void set{{ field.name|capitalize }}({{ field.name|capitalize }}Values {{ field.name }}){
         this.{{ field.name }}={{ field.name }};
     }
-{% else %}
-{% if field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0%}
+{% elif field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0 %}
     public ZonedDateTime get{{field.name|capitalize }}() {
         return this.{{field.name}};
     }
@@ -78,7 +75,6 @@ public class {{ entity.name }} {
     public void set{{field.name|capitalize}} ( ZonedDateTime {{ field.name }}){
         this.{{ field.name }}={{ field.name }};
     }
-{% endif %}
 {% else %}
     public {{ (field.attributes|selectattr("name","equalto","type")|first).value }} get{{field.name|capitalize}}(){
         return this.{{field.name}};

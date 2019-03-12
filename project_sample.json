@@ -623,7 +623,7 @@
                                                             "label": "Field type",
                                                             "description": "The field type",
                                                             "order": 1,
-                                                            "value": "String",
+                                                            "value": "Date",
                                                             "type": "type",
                                                             "access": 3,
                                                             "possibleValues": [
