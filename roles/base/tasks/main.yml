@@ -54,3 +54,19 @@
   template:
     src: application.properties.j2
     dest: '/target/src/main/resources/application.properties'
+- name: create migration directory
+  file:
+    path: '/target/src/main/resources/db/migration'
+    state: directory
+- name: write Flyway migrations
+  template:
+    src: V1_init.sql.j2
+    dest: '/target/src/main/resources/db/migration/V1_init.sql'
+- name: write Dockerfile
+  template:
+    src: Dockerfile.j2
+    dest: '/target/Dockerfile'
+- name: write docker-compose
+  template:
+    src: docker-compose.yml.j2
+    dest: '/target/docker-compose.yml'

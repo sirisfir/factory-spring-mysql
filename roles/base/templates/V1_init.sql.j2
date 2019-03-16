@@ -1,0 +1,29 @@
+{% for entity in (domain.relations|selectattr('name','equalto','entities')|first).children|list %}
+CREATE TABLE {{entity.name|lower}}(
+    {% for field in (entity.relations|selectattr('name','equalto','fields')|first).children %}
+    `{{field.name|lower}}` 
+    {% if field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0 %}
+    DATETIME
+    {% elif field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Integer")|list|length > 0 %}
+    INTEGER
+    {% elif field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Double")|list|length > 0 %}
+    DOUBLE
+    {% else %}
+    VARCHAR(255)
+    {% endif %}
+    {% if field.attributes|selectattr("name","equalto","optional")|selectattr("value","equalto","false")|list|length > 0 %}
+    NOT NULL
+    {% else %}
+    NULL
+    {% endif %}
+    {% if field.attributes|selectattr("name","equalto","id")|selectattr("value","equalto","true")|list|length > 0 %}
+    PRIMARY KEY
+    {% endif %}
+    {% if field.attributes|selectattr("name","equalto","generated")|selectattr("value","equalto","true")|list|length > 0 %}
+    AUTO_INCREMENT
+    {% endif %}
+    ,
+    {% endfor %}
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+{% endfor %}
