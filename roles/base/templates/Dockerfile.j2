@@ -1,0 +1,10 @@
+FROM maven:latest AS MAVEN_TOOL_CHAIN
+COPY pom.xml /tmp/
+COPY src /tmp/src/
+WORKDIR /tmp/
+RUN mvn package
+ 
+FROM openjdk:jre-stretch
+VOLUME /tmp
+COPY --from=MAVEN_TOOL_CHAIN /tmp/target/*.jar app.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]

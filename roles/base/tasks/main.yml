@@ -50,18 +50,18 @@
   file:
     path: '/target/src/main/resources'
     state: directory
-- name: write the application.properties
+- name: write the application.yml
   template:
-    src: application.properties.j2
-    dest: '/target/src/main/resources/application.properties'
+    src: application.yml.j2
+    dest: '/target/src/main/resources/application.yml'
 - name: create migration directory
   file:
     path: '/target/src/main/resources/db/migration'
     state: directory
 - name: write Flyway migrations
   template:
-    src: V1_init.sql.j2
-    dest: '/target/src/main/resources/db/migration/V1_init.sql'
+    src: V1__init.sql.j2
+    dest: '/target/src/main/resources/db/migration/V1__init.sql'
 - name: write Dockerfile
   template:
     src: Dockerfile.j2
