@@ -15,7 +15,7 @@
     path: '{{ basePackage }}/domain'
     state: directory
 - name: write the Entity classes
-  loop: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|list }}"
+  loop: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','DOMAIN_ENTITY')|list }}"
   vars:
     entity: "{{ item }}"
     fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children|list }}"
@@ -27,12 +27,26 @@
     path: '{{ basePackage }}/repository'
     state: directory
 - name: write the Repository classes
-  loop: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|list  }}"
+  loop: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','DOMAIN_ENTITY')|list  }}"
   vars:
     entity: "{{ item }}"
     fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children }}"
   template:
     src: "Repository.java.j2"
+    dest: "{{ basePackage }}/repository/{{entity.name}}Repository.java"
+- name: write the Authentication Entity class
+  vars:
+    entity: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','AUTHENTICATION_ENTITY')|first }}"
+    fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children|list }}"
+  template:
+    src: "User.java.j2"
+    dest: "{{ basePackage }}/domain/{{entity.name}}.java"
+- name: write the Authentication Repository interface
+  vars:
+    entity: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','AUTHENTICATION_ENTITY')|first  }}"
+    fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children }}"
+  template:
+    src: "UserRepository.java.j2"
     dest: "{{ basePackage }}/repository/{{entity.name}}Repository.java"
 - name: create controller directory
   file:
@@ -46,6 +60,28 @@
   template:
     src: "Controller.java.j2"
     dest: "{{ basePackage }}/controller/{{entity.name}}Controller.java"
+- name: create config directory
+  file:
+    path: '{{ basePackage }}/security'
+    state: directory
+- name: write the JWT Security config class
+  template:
+    src: JWTSecurityConfig.java.j2
+    dest: '{{ basePackage }}/security/JWTSecurityConfig.java'
+- name: write the JWT Filter class
+  template:
+    src: JWTTokenAuthenticationFilter.java.j2
+    dest: '{{ basePackage }}/security/JWTTokenAuthenticationFilter.java'
+- name: write the Username and Password Filter class
+  template:
+    src: JWTUsernameAndPasswordAuthenticationFilter.java.j2
+    dest: '{{ basePackage }}/security/JWTUsernameAndPasswordAuthenticationFilter.java'
+- name: write the User Service class
+  vars:
+    entity: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','AUTHENTICATION_ENTITY')|first  }}"
+  template:
+    src: UserDetailsServiceImpl.java.j2
+    dest: '{{ basePackage }}/security/UserDetailsServiceImpl.java'
 - name: create resources directory
   file:
     path: '/target/src/main/resources'

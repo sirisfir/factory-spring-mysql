@@ -1,0 +1,98 @@
+package {{ group }}.{{ artifact }}.domain;
+
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+{% if fields|sum(attribute="attributes", start=[])|selectattr("name","equalto","enum")|selectattr("value","equalto","true")|list|length > 0 %}
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+{% endif %}
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+{% if fields|sum(attribute="attributes", start=[])|selectattr("name","equalto","fk")|rejectattr("value","equalto","None")|list|length > 0 %}
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+{% endif %}
+{% if fields|sum(attribute="attributes", start=[])|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0 %}
+import java.time.ZonedDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+{% endif %}
+import java.util.Arrays;
+
+/**
+* {{ entity.description }}
+* @author {{ author }}
+*/
+@Entity
+public class {{ entity.name }} {
+
+{% for field in fields %}
+{% if field.attributes|selectattr("name","equalto","id")|selectattr("value","equalto","true")|list|length > 0 %}
+    @Id
+{% if field.attributes|selectattr("name","equalto","generated")|selectattr("value","equalto","true")|list|length > 0 %}
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+{% endif %}
+    private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
+{% elif field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","enumeration")|list|length > 0 %}
+    public enum {{ field.name|capitalize }}Values {
+        {{ (field.attributes|selectattr("name","equalto","enum")|first).possibleValues|join(',') }}
+    };
+
+    @Basic(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
+    @Enumerated(EnumType.STRING)
+    private {{ field.name|capitalize }}Values {{ field.name }};
+{% elif field.attributes|selectattr("name","equalto","basic")|selectattr("value","equalto","true")|list|length > 0 %}
+    @Basic(optional={{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
+{% if field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0%}
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private ZonedDateTime {{ field.name }};
+{% else %}
+    private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }};
+{% endif %}
+{% elif field.attributes|selectattr("name","equalto","fk")|rejectattr("value","equalto","None")|list|length > 0 %}
+    @{{  (field.attributes|selectattr("name","equalto","fk")|first).value }}(optional = {{ (field.attributes|selectattr("name","equalto","optional")|first).value|lower }})
+{% if field.attributes|selectattr("name","equalto","fk")|selectattr("value","equalto","ManyToOne")|list|length > 0 %}
+    @JoinColumn(name = "{{ field.name }}")
+{% endif %}
+    private {{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{field.name}};
+{% endif %}
+
+{% endfor %}
+
+{% for field in fields %}
+{% if field.attributes|selectattr("name","equalto","enum")|selectattr("value","equalto","true")|list|length > 0 %}
+    public {{ field.name|capitalize }}Values get{{ field.name|capitalize }}(){
+        return this.{{ field.name }};
+    }
+
+    public void set{{ field.name|capitalize }}({{ field.name|capitalize }}Values {{ field.name }}){
+        this.{{ field.name }}={{ field.name }};
+    }
+{% elif field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Date")|list|length > 0 %}
+    public ZonedDateTime get{{field.name|capitalize }}() {
+        return this.{{field.name}};
+    }
+
+    public void set{{field.name|capitalize}} ( ZonedDateTime {{ field.name }}){
+        this.{{ field.name }}={{ field.name }};
+    }
+{% else %}
+    public {{ (field.attributes|selectattr("name","equalto","type")|first).value }} get{{field.name|capitalize}}(){
+        return this.{{field.name}};
+    }
+
+    public void set{{ field.name|capitalize }}({{ (field.attributes|selectattr("name","equalto","type")|first).value }} {{ field.name }}){
+        this.{{ field.name }}={{ field.name }};
+    }
+{% endif %}
+{% endfor %}
+    public final UserDetails getUserDetails(){
+        return new org.springframework.security.core.userdetails.User(
+            this.getUsername(), this.getPassword(), 
+            Arrays.asList(new GrantedAuthority[]{new SimpleGrantedAuthority(this.getRole().name())})
+        );
+    }
+}
