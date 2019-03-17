@@ -9,7 +9,9 @@ CREATE TABLE {{entity.name|lower}}(
 {%- elif field.attributes|selectattr("name","equalto","type")|selectattr("value","equalto","Double")|list|length > 0 %}
 DOUBLE 
 {%- elif field.attributes|selectattr("name","equalto","id")|selectattr("value","equalto","true")|list|length > 0 %}
- INT 
+ BIGINT 
+{%- elif field.attributes|selectattr("name","equalto","fk")|selectattr("value","equalto","ManyToOne")|list|length > 0 %}
+ BIGINT 
 {%- else %}
  VARCHAR(255) 
 {%- endif -%}
