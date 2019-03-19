@@ -35,6 +35,7 @@
     src: "Repository.java.j2"
     dest: "{{ basePackage }}/repository/{{entity.name}}Repository.java"
 - name: write the Authentication Entity class
+  when: "hasSecurity == true"
   vars:
     entity: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','AUTHENTICATION_ENTITY')|first }}"
     fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children|list }}"
@@ -42,6 +43,7 @@
     src: "User.java.j2"
     dest: "{{ basePackage }}/domain/{{entity.name}}.java"
 - name: write the Authentication Repository interface
+  when: "hasSecurity == true"
   vars:
     entity: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','AUTHENTICATION_ENTITY')|first  }}"
     fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children }}"
@@ -61,26 +63,32 @@
     src: "Controller.java.j2"
     dest: "{{ basePackage }}/controller/{{entity.name}}Controller.java"
 - name: create config directory
+  when: "hasSecurity == true"
   file:
     path: '{{ basePackage }}/security'
     state: directory
 - name: write the JWT Security config class
+  when: "hasSecurity == true"
   template:
     src: JWTSecurityConfig.java.j2
     dest: '{{ basePackage }}/security/JWTSecurityConfig.java'
 - name: write the JWT Filter class
+  when: "hasSecurity == true"
   template:
     src: JWTTokenAuthenticationFilter.java.j2
     dest: '{{ basePackage }}/security/JWTTokenAuthenticationFilter.java'
 - name: write the Username and Password Filter class
+  when: "hasSecurity == true"
   template:
     src: JWTUsernameAndPasswordAuthenticationFilter.java.j2
     dest: '{{ basePackage }}/security/JWTUsernameAndPasswordAuthenticationFilter.java'
 - name: write the Options Filter (CORS) class
+  when: "hasSecurity == true"
   template:
     src: OptionsFilter.java.j2
     dest: '{{ basePackage }}/security/OptionsFilter.java'
 - name: write the User Service class
+  when: "hasSecurity == true"
   vars:
     entity: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','AUTHENTICATION_ENTITY')|first  }}"
   template:

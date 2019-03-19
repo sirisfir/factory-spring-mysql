@@ -5,4 +5,4 @@
     project: "{{ lookup('file', '/target/project.json') | from_json }}"
   roles:
     - base
-    - codemancy.domain.base
+    # - codemancy.domain.base
