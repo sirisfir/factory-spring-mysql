@@ -2,6 +2,9 @@ package {{ group }}.{{ artifact }}.domain;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 {% if fields|sum(attribute="attributes", start=[])|selectattr("name","equalto","enum")|selectattr("value","equalto","true")|list|length > 0 %}
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,6 +20,7 @@ import javax.persistence.ManyToOne;
 import java.time.ZonedDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 {% endif %}
+import java.util.Arrays;
 
 /**
 * {{ entity.description }}
@@ -85,5 +89,10 @@ public class {{ entity.name }} {
     }
 {% endif %}
 {% endfor %}
-
+    public final UserDetails getUserDetails(){
+        return new org.springframework.security.core.userdetails.User(
+            this.getUsername(), this.getPassword(), 
+            Arrays.asList(new GrantedAuthority[]{new SimpleGrantedAuthority(this.getRole().name())})
+        );
+    }
 }

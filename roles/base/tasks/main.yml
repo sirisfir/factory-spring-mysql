@@ -15,10 +15,10 @@
     path: '{{ basePackage }}/domain'
     state: directory
 - name: write the Entity classes
-  loop: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|list }}"
+  loop: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','DOMAIN_ENTITY')|list }}"
   vars:
     entity: "{{ item }}"
-    fields: "{{ (item.relations|selectattr('name','equalto','fields')|first).children|list }}"
+    fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children|list }}"
   template:
     src: "Entity.java.j2"
     dest: "{{ basePackage }}/domain/{{entity.name}}.java"
@@ -27,12 +27,28 @@
     path: '{{ basePackage }}/repository'
     state: directory
 - name: write the Repository classes
-  loop: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|list  }}"
+  loop: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','DOMAIN_ENTITY')|list  }}"
   vars:
     entity: "{{ item }}"
     fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children }}"
   template:
     src: "Repository.java.j2"
+    dest: "{{ basePackage }}/repository/{{entity.name}}Repository.java"
+- name: write the Authentication Entity class
+  when: "hasSecurity == true"
+  vars:
+    entity: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','AUTHENTICATION_ENTITY')|first }}"
+    fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children|list }}"
+  template:
+    src: "User.java.j2"
+    dest: "{{ basePackage }}/domain/{{entity.name}}.java"
+- name: write the Authentication Repository interface
+  when: "hasSecurity == true"
+  vars:
+    entity: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','AUTHENTICATION_ENTITY')|first  }}"
+    fields: "{{ (entity.relations|selectattr('name','equalto','fields')|first).children }}"
+  template:
+    src: "UserRepository.java.j2"
     dest: "{{ basePackage }}/repository/{{entity.name}}Repository.java"
 - name: create controller directory
   file:
@@ -46,11 +62,59 @@
   template:
     src: "Controller.java.j2"
     dest: "{{ basePackage }}/controller/{{entity.name}}Controller.java"
+- name: create config directory
+  when: "hasSecurity == true"
+  file:
+    path: '{{ basePackage }}/security'
+    state: directory
+- name: write the JWT Security config class
+  when: "hasSecurity == true"
+  template:
+    src: JWTSecurityConfig.java.j2
+    dest: '{{ basePackage }}/security/JWTSecurityConfig.java'
+- name: write the JWT Filter class
+  when: "hasSecurity == true"
+  template:
+    src: JWTTokenAuthenticationFilter.java.j2
+    dest: '{{ basePackage }}/security/JWTTokenAuthenticationFilter.java'
+- name: write the Username and Password Filter class
+  when: "hasSecurity == true"
+  template:
+    src: JWTUsernameAndPasswordAuthenticationFilter.java.j2
+    dest: '{{ basePackage }}/security/JWTUsernameAndPasswordAuthenticationFilter.java'
+- name: write the Options Filter (CORS) class
+  when: "hasSecurity == true"
+  template:
+    src: OptionsFilter.java.j2
+    dest: '{{ basePackage }}/security/OptionsFilter.java'
+- name: write the User Service class
+  when: "hasSecurity == true"
+  vars:
+    entity: "{{ (domain.relations|selectattr('name','equalto','entities')|first).children|selectattr('category','equalto','AUTHENTICATION_ENTITY')|first  }}"
+  template:
+    src: UserDetailsServiceImpl.java.j2
+    dest: '{{ basePackage }}/security/UserDetailsServiceImpl.java'
 - name: create resources directory
   file:
     path: '/target/src/main/resources'
     state: directory
-- name: write the application.properties
+- name: write the application.yml
   template:
-    src: application.properties.j2
-    dest: '/target/src/main/resources/application.properties'
+    src: application.yml.j2
+    dest: '/target/src/main/resources/application.yml'
+- name: create migration directory
+  file:
+    path: '/target/src/main/resources/db/migration'
+    state: directory
+- name: write Flyway migrations
+  template:
+    src: V1__init.sql.j2
+    dest: '/target/src/main/resources/db/migration/V1__init.sql'
+- name: write Dockerfile
+  template:
+    src: Dockerfile.j2
+    dest: '/target/Dockerfile'
+- name: write docker-compose
+  template:
+    src: docker-compose.yml.j2
+    dest: '/target/docker-compose.yml'
